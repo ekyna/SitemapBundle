@@ -1,0 +1,14 @@
+ekyna_sitemap:
+    pattern: /sitemap.xml
+    defaults:
+        _controller: "EkynaSitemapBundle:Sitemap:sitemap"
+    requirements:
+        _method: GET
+
+ekyna_sitemap_group:
+    pattern: /sitemaps/{group}.xml
+    defaults:
+        _controller: "EkynaSitemapBundle:Sitemap:sitemap"
+    requirements:
+        _method: GET
+        group: "[a-z-]+"
