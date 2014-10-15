@@ -1,13 +1,13 @@
 <?php
 
-namespace Ekyna\Bundle\SitemapBundle\Model;
+namespace Ekyna\Bundle\SitemapBundle\Url;
 
 /**
- * Class Entry
- * @package Ekyna\Bundle\SitemapBundle\Model
+ * Class Url
+ * @package Ekyna\Bundle\SitemapBundle\Url
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class Entry implements EntryInterface
+class Url implements UrlInterface
 {
     /**
      * @var string

@@ -24,5 +24,8 @@ class EkynaSitemapExtension extends Extension
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        $container->setParameter('ekyna_sitemap.index_ttl', $config['index_ttl']);
+        $container->setParameter('ekyna_sitemap.sitemap_ttl', $config['sitemap_ttl']);
     }
 }

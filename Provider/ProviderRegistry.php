@@ -17,7 +17,7 @@ class ProviderRegistry implements ProviderRegistryInterface
     /**
      * @var array
      */
-    private $groups;
+    private $sitemaps;
 
     /**
      * Constructor.
@@ -25,7 +25,7 @@ class ProviderRegistry implements ProviderRegistryInterface
     public function __construct()
     {
         $this->providers = [];
-        $this->groups = [];
+        $this->sitemaps = [];
     }
 
     /**
@@ -36,8 +36,8 @@ class ProviderRegistry implements ProviderRegistryInterface
         if (array_key_exists($provider->getName(), $this->providers)) {
             throw new \InvalidArgumentException(sprintf('Provider "%s" is already registered.', $provider->getName()));
         }
-        if (null !== $provider->getGroup() && !in_array($provider->getGroup(), $this->groups)) {
-            $this->groups[] = $provider->getGroup();
+        if (!in_array($provider->getSitemap(), $this->sitemaps)) {
+            $this->sitemaps[] = $provider->getSitemap();
         }
         $this->providers[$provider->getName()] = $provider;
     }
@@ -45,25 +45,11 @@ class ProviderRegistry implements ProviderRegistryInterface
     /**
      * {@inheritdoc}
      */
-    public function getProviderByName($name)
+    public function getProvidersBySitemap($sitemap)
     {
-        if (array_key_exists($name, $this->providers)) {
-            return $this->providers[$name];
-        }
-        throw new \InvalidArgumentException(sprintf('Provider "%s" not found.', $name));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getProvidersByGroup($group = null)
-    {
-        if (null !== $group && !in_array($group, $this->groups)) {
-            throw new \InvalidArgumentException(sprintf('Group "%s" not found.', $group));
-        }
         $providers = [];
         foreach($this->providers as $provider) {
-            if ($provider->getGroup() === $group) {
+            if ($provider->getSitemap() === $sitemap) {
                 $providers[] = $provider;
             }
         }
@@ -81,8 +67,8 @@ class ProviderRegistry implements ProviderRegistryInterface
     /**
      * {@inheritdoc}
      */
-    public function getGroups()
+    public function getSitemaps()
     {
-        return $this->groups;
+        return $this->sitemaps;
     }
 }

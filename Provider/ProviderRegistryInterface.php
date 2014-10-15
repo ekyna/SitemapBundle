@@ -19,26 +19,13 @@ interface ProviderRegistryInterface
     public function addProvider(ProviderInterface $provider);
 
     /**
-     * Returns the provider by name.
+     * Returns the registered providers by sitemap.
      *
-     * @param $name
-     *
-     * @throws \InvalidArgumentException
-     *
-     * @return ProviderInterface
-     */
-    public function getProviderByName($name);
-
-    /**
-     * Returns the registered providers by group.
-     *
-     * @param string $group
-     *
-     * @throws \InvalidArgumentException
+     * @param string $sitemap
      *
      * @return ProviderInterface[]
      */
-    public function getProvidersByGroup($group = null);
+    public function getProvidersBySitemap($sitemap);
 
     /**
      * Returns the registered providers.
@@ -48,9 +35,9 @@ interface ProviderRegistryInterface
     public function getProviders();
 
     /**
-     * Returns the groups.
+     * Returns the sitemaps.
      *
      * @return array
      */
-    public function getGroups();
-} 
+    public function getSitemaps();
+}

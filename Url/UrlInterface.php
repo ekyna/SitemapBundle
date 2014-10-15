@@ -1,13 +1,13 @@
 <?php
 
-namespace Ekyna\Bundle\SitemapBundle\Model;
+namespace Ekyna\Bundle\SitemapBundle\Url;
 
 /**
- * Interface EntryInterface
- * @package Ekyna\Bundle\SitemapBundle\Model
+ * Interface UrlInterface
+ * @package Ekyna\Bundle\SitemapBundle\Url
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-interface EntryInterface
+interface UrlInterface
 {
     /**
      * Returns the location.
@@ -20,7 +20,7 @@ interface EntryInterface
      * Sets the location.
      *
      * @param string $location
-     * @return EntryInterface|$this
+     * @return UrlInterface|$this
      */
     public function setLocation($location);
 
@@ -35,7 +35,7 @@ interface EntryInterface
      * Sets the lastmod.
      *
      * @param string $lastmod
-     * @return EntryInterface|$this
+     * @return UrlInterface|$this
      */
     public function setLastmod($lastmod);
 
@@ -50,7 +50,7 @@ interface EntryInterface
      * Sets the changefreq.
      *
      * @param string $changefreq
-     * @return EntryInterface|$this
+     * @return UrlInterface|$this
      */
     public function setChangefreq($changefreq);
 
@@ -65,7 +65,7 @@ interface EntryInterface
      * Sets the priority.
      *
      * @param float $priority
-     * @return EntryInterface|$this
+     * @return UrlInterface|$this
      */
     public function setPriority($priority);
 }

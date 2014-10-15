@@ -17,14 +17,14 @@ abstract class AbstractProvider implements ProviderInterface
     /**
      * {@inheritdoc}
      */
-    abstract public function getEntries();
+    abstract public function getUrls();
 
     /**
      * {@inheritdoc}
      */
-    public function getGroup()
+    public function getSitemap()
     {
-        return null;
+        return 'default';
     }
 
     /**

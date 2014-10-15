@@ -20,6 +20,13 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('ekyna_sitemap');
 
+        $rootNode
+            ->children()
+                ->integerNode('index_ttl')->defaultValue(24*3600)->end()
+                ->integerNode('sitemap_ttl')->defaultValue(3*3600)->end()
+            ->end()
+        ;
+
         return $treeBuilder;
     }
 }

@@ -17,21 +17,21 @@ interface ProviderInterface
     public function getLastUpdateDate();
 
     /**
-     * Returns the sitemap entries.
+     * Returns the sitemap urls.
      *
-     * @return array|\Ekyna\Bundle\SitemapBundle\Model\EntryInterface[]
+     * @return array|\Ekyna\Bundle\SitemapBundle\Url\UrlInterface[]
      */
-    public function getEntries();
+    public function getUrls();
 
     /**
-     * Returns the group.
+     * Returns the sitemap name.
      *
      * @return null|string
      */
-    public function getGroup();
+    public function getSitemap();
 
     /**
-     * Returns the name.
+     * Returns the provider name.
      *
      * @return string
      */
