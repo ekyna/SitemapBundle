@@ -4,14 +4,22 @@ namespace Ekyna\Bundle\SitemapBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Class SitemapControllerTest
+ * @package Ekyna\Bundle\SitemapBundle\Tests\Controller
+ * @author Étienne Dauvergne <contact@ekyna.com>
+ */
 class SitemapControllerTest extends WebTestCase
 {
-    public function testIndex()
+    /**
+     * Test sitemap index.
+     */
+    public function testIndexAction()
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/hello/Fabien');
+        $client->request('GET', '/sitemap.xml');
 
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+        $this->assertTrue($client->getResponse()->isSuccessful());
     }
 }
