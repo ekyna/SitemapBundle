@@ -2,7 +2,7 @@
 
 namespace Ekyna\Bundle\SitemapBundle;
 
-use Ekyna\Bundle\SitemapBundle\DependencyInjection\Compiler\ProviderPass;
+use Ekyna\Bundle\SitemapBundle\DependencyInjection\Compiler\SitemapProviderPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -18,6 +18,6 @@ class EkynaSitemapBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new ProviderPass());
+        $container->addCompilerPass(new SitemapProviderPass());
     }
 }
