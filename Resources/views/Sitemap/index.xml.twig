@@ -4,7 +4,7 @@
 {% for sitemap, lastmod in sitemaps %}
     <sitemap>
         <loc>{{ url('ekyna_sitemap_sitemap', {'sitemap': sitemap}) }}</loc>
-        <lastmod>{{ lastmod|date('Y-m-d\TH:i:sP') }}</lastmod>
+        <lastmod>{{ lastmod|date('c') }}</lastmod>
     </sitemap>
 {% endfor %}
 </sitemapindex>

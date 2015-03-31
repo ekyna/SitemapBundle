@@ -5,7 +5,7 @@
     {% for url in provider.urls -%}
     <url>
         <loc>{{ url.location }}</loc>
-        <lastmod>{{ url.lastmod|date('Y-m-d\TH:i:sP') }}</lastmod>
+        <lastmod>{{ url.lastmod|date('c') }}</lastmod>
         <changefreq>{{ url.changefreq }}</changefreq>
         <priority>{{ url.priority }}</priority>
     </url>
