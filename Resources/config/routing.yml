@@ -1,14 +1,13 @@
 ekyna_sitemap_index:
-    pattern: /sitemap.xml
+    path: /sitemap.xml
     defaults:
         _controller: "EkynaSitemapBundle:Sitemap:index"
-    requirements:
-        _method: GET
+    methods: [GET]
 
 ekyna_sitemap_sitemap:
-    pattern: /sitemaps/{sitemap}.xml
+    path: /sitemaps/{sitemap}.xml
     defaults:
         _controller: "EkynaSitemapBundle:Sitemap:sitemap"
+    methods: [GET]
     requirements:
-        _method: GET
         group: "[a-z-]+"
