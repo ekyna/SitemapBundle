@@ -26,7 +26,7 @@ class SitemapProviderPass implements CompilerPassInterface
         $services = $container->findTaggedServiceIds('ekyna_sitemap.provider');
 
         foreach ($services as $service => $attributes) {
-            $definition->addMethodCall('addProvider', array(new Reference($service)));
+            $definition->addMethodCall('addProvider', [new Reference($service)]);
         }
     }
 }

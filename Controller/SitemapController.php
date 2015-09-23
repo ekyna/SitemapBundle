@@ -17,6 +17,7 @@ class SitemapController extends Controller
     /**
      * Renders the sitemaps index.
      *
+     * @param Request $request
      * @return Response
      */
     public function indexAction(Request $request)
@@ -47,16 +48,17 @@ class SitemapController extends Controller
             return $response;
         }
         $response->setMaxAge($this->container->getParameter('ekyna_sitemap.index_ttl'));
-        $response->headers->add(array('Content-Type' => 'application/xml; charset=UTF-8'));
+        $response->headers->add(['Content-Type' => 'application/xml; charset=UTF-8']);
 
-        return $response->setContent($this->renderView('EkynaSitemapBundle:Sitemap:index.xml.twig', array(
+        return $response->setContent($this->renderView('EkynaSitemapBundle:Sitemap:index.xml.twig', [
             'sitemaps' => $sitemaps,
-        )));
+        ]));
     }
 
     /**
      * Renders the sitemap.
      *
+     * @param Request $request
      * @return Response
      */
     public function sitemapAction(Request $request)
@@ -85,10 +87,10 @@ class SitemapController extends Controller
             return $response;
         }
         $response->setMaxAge($this->container->getParameter('ekyna_sitemap.sitemap_ttl'));
-        $response->headers->add(array('Content-Type' => 'application/xml; charset=UTF-8'));
+        $response->headers->add(['Content-Type' => 'application/xml; charset=UTF-8']);
 
-        return $response->setContent($this->renderView('EkynaSitemapBundle:Sitemap:sitemap.xml.twig', array(
+        return $response->setContent($this->renderView('EkynaSitemapBundle:Sitemap:sitemap.xml.twig', [
             'providers' => $providers,
-        )));
+        ]));
     }
 }
