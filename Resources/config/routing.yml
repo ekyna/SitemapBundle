@@ -3,6 +3,7 @@ ekyna_sitemap_index:
     defaults:
         _controller: "EkynaSitemapBundle:Sitemap:index"
     methods: [GET]
+    options: { i18n: false }
 
 ekyna_sitemap_sitemap:
     path: /sitemaps/{sitemap}.xml
@@ -11,3 +12,4 @@ ekyna_sitemap_sitemap:
     methods: [GET]
     requirements:
         group: "[a-z-]+"
+    options: { i18n: false }
