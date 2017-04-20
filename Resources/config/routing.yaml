@@ -1,0 +1,11 @@
+ekyna_sitemap_index:
+    path: /sitemap.xml
+    controller: Ekyna\Bundle\SitemapBundle\Controller\SitemapController::index
+    methods: [GET]
+
+ekyna_sitemap_sitemap:
+    path: /sitemaps/{sitemap}.xml
+    controller: Ekyna\Bundle\SitemapBundle\Controller\SitemapController::sitemap
+    methods: [GET]
+    requirements:
+        group: '[a-z-]+'

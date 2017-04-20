@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\SitemapBundle\DependencyInjection;
 
+use Ekyna\Bundle\SitemapBundle\Controller\SitemapController;
+use Ekyna\Bundle\SitemapBundle\Provider\ProviderRegistry;
+use Ekyna\Bundle\SitemapBundle\Provider\ProviderRegistryInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Loader;
 
 /**
  * Class EkynaSitemapExtension
@@ -14,18 +18,24 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class EkynaSitemapExtension extends Extension
 {
-    /**
-     * {@inheritDoc}
-     */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration(new Configuration(), $configs);
 
-        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.xml');
+        $container->register('ekyna_sitemap.provider_registry', ProviderRegistry::class);
 
-        $container->setParameter('ekyna_sitemap.index_ttl', $config['index_ttl']);
-        $container->setParameter('ekyna_sitemap.sitemap_ttl', $config['sitemap_ttl']);
+        $container->setAlias(ProviderRegistryInterface::class, 'ekyna_sitemap.provider_registry');
+
+        $container
+            ->register('ekyna_sitemap.controller.sitemap', SitemapController::class)
+            ->setArguments([
+                new Reference('ekyna_sitemap.provider_registry'),
+                new Reference('twig'),
+                $config
+            ]);
+
+        $container
+            ->setAlias(SitemapController::class, 'ekyna_sitemap.controller.sitemap')
+            ->setPublic(true);
     }
 }

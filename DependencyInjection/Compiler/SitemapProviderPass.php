@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\SitemapBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -13,19 +15,13 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class SitemapProviderPass implements CompilerPassInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function process(ContainerBuilder $container)
+    public const TAG = 'ekyna_sitemap.provider';
+
+    public function process(ContainerBuilder $container): void
     {
-        if (!$container->hasDefinition('ekyna_sitemap.provider_registry')) {
-            return;
-        }
-
         $definition = $container->getDefinition('ekyna_sitemap.provider_registry');
-        $services = $container->findTaggedServiceIds('ekyna_sitemap.provider');
 
-        foreach ($services as $service => $attributes) {
+        foreach ($container->findTaggedServiceIds(self::TAG) as $service => $attributes) {
             $definition->addMethodCall('addProvider', [new Reference($service)]);
         }
     }

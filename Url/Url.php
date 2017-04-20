@@ -1,99 +1,68 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\SitemapBundle\Url;
+
+use DateTimeInterface;
 
 /**
  * Class Url
  * @package Ekyna\Bundle\SitemapBundle\Url
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class Url implements UrlInterface
 {
-    /**
-     * @var string
-     */
-    private $location;
+    private ?string            $location   = null;
+    private ?DateTimeInterface $lastmod    = null;
+    private ?string            $changefreq = null;
+    private ?string            $priority   = null;
 
-    /**
-     * @var string
-     */
-    private $lastmod;
-
-    /**
-     * @var string
-     */
-    private $changefreq;
-
-    /**
-     * @var float
-     */
-    private $priority;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getLocation()
+    public function getLocation(): ?string
     {
         return $this->location;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setLocation($location)
+    public function setLocation(?string $location): UrlInterface
     {
         $this->location = $location;
+
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getLastmod()
+    public function getLastmod(): ?DateTimeInterface
     {
         return $this->lastmod;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setLastmod($lastmod)
+    public function setLastmod(?DateTimeInterface $lastmod): UrlInterface
     {
         $this->lastmod = $lastmod;
+
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getChangefreq()
+    public function getChangefreq(): ?string
     {
         return $this->changefreq;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setChangefreq($changefreq)
+    public function setChangefreq(?string $changefreq): UrlInterface
     {
         $this->changefreq = $changefreq;
+
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getPriority()
+    public function getPriority(): ?string
     {
         return $this->priority;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setPriority($priority)
+    public function setPriority(?string $priority): UrlInterface
     {
         $this->priority = $priority;
+
         return $this;
     }
 }
