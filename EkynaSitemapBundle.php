@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\SitemapBundle;
 
 use Ekyna\Bundle\SitemapBundle\DependencyInjection\Compiler\SitemapProviderPass;
@@ -13,10 +15,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class EkynaSitemapBundle extends Bundle
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function build(ContainerBuilder $container)
+    public function build(ContainerBuilder $container): void
     {
         $container->addCompilerPass(new SitemapProviderPass());
     }

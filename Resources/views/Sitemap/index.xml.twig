@@ -1,4 +1,4 @@
-{% spaceless %}
+{% apply spaceless %}
 <?xml version='1.0' encoding='UTF-8'?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {% for sitemap, lastmod in sitemaps %}
@@ -6,6 +6,6 @@
         <loc>{{ url('ekyna_sitemap_sitemap', {'sitemap': sitemap}) }}</loc>
         <lastmod>{{ lastmod|date('c') }}</lastmod>
     </sitemap>
-{% endfor %}
+{%- endfor %}
 </sitemapindex>
-{% endspaceless %}
+{% endapply %}

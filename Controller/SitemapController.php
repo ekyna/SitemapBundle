@@ -1,35 +1,48 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\SitemapBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ekyna\Bundle\SitemapBundle\Provider\ProviderRegistryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Twig\Environment;
 
 /**
  * Class SitemapController
  * @package Ekyna\Bundle\SitemapBundle\Controller
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-class SitemapController extends Controller
+class SitemapController
 {
+    private ProviderRegistryInterface $providerRegistry;
+    private Environment               $twig;
+    private array                     $config;
+
+    public function __construct(ProviderRegistryInterface $providerRegistry, Environment $twig, array $config)
+    {
+        $this->providerRegistry = $providerRegistry;
+        $this->twig = $twig;
+
+        $this->config = array_replace([
+            'index_ttl'   => 0,
+            'sitemap_ttl' => 0,
+        ], $config);
+    }
+
     /**
      * Renders the sitemaps index.
-     *
-     * @param Request $request
-     * @return Response
      */
-    public function indexAction(Request $request)
+    public function index(Request $request): Response
     {
-        $registry = $this->get('ekyna_sitemap.provider_registry');
         $sitemaps = [];
 
         $lastUpdateDate = null;
-        foreach($registry->getSitemaps() as $sitemap) {
-            $providers = $registry->getProvidersBySitemap($sitemap);
+        foreach ($this->providerRegistry->getSitemaps() as $sitemap) {
+            $providers = $this->providerRegistry->getProvidersBySitemap($sitemap);
             $sitemapLastUpdateDate = null;
-            /** @var \Ekyna\Bundle\SitemapBundle\Provider\ProviderInterface $provider */
             foreach ($providers as $provider) {
                 if (null === $sitemapLastUpdateDate || $sitemapLastUpdateDate < $provider->getLastUpdateDate()) {
                     $sitemapLastUpdateDate = $provider->getLastUpdateDate();
@@ -47,34 +60,31 @@ class SitemapController extends Controller
         if ($response->isNotModified($request)) {
             return $response;
         }
-        $response->setMaxAge($this->container->getParameter('ekyna_sitemap.index_ttl'));
-        $response->headers->add(['Content-Type' => 'application/xml; charset=UTF-8']);
 
-        return $response->setContent($this->renderView('@EkynaSitemap/Sitemap/index.xml.twig', [
+        $response->headers->add(['Content-Type' => 'application/xml; charset=UTF-8']);
+        $response->setMaxAge($this->config['index_ttl']);
+
+        $content = $this->twig->render('@EkynaSitemap/Sitemap/index.xml.twig', [
             'sitemaps' => $sitemaps,
-        ]));
+        ]);
+
+        return $response->setContent($content);
     }
 
     /**
      * Renders the sitemap.
-     *
-     * @param Request $request
-     * @return Response
      */
-    public function sitemapAction(Request $request)
+    public function sitemap(Request $request): Response
     {
-        $sitemap = $request->attributes->get('sitemap', null);
+        $sitemap = $request->attributes->get('sitemap');
 
-        $registry = $this->get('ekyna_sitemap.provider_registry');
-        $providers = $registry->getProvidersBySitemap($sitemap);
-
+        $providers = $this->providerRegistry->getProvidersBySitemap($sitemap);
         if (0 === count($providers)) {
             throw new NotFoundHttpException('Sitemap not found.');
         }
 
         $lastUpdateDate = null;
-        /** @var \Ekyna\Bundle\SitemapBundle\Provider\ProviderInterface $provider */
-        foreach($providers as $provider) {
+        foreach ($providers as $provider) {
             if (null === $lastUpdateDate || $lastUpdateDate < $provider->getLastUpdateDate()) {
                 $lastUpdateDate = $provider->getLastUpdateDate();
             }
@@ -86,11 +96,14 @@ class SitemapController extends Controller
         if ($response->isNotModified($request)) {
             return $response;
         }
-        $response->setMaxAge($this->container->getParameter('ekyna_sitemap.sitemap_ttl'));
+
+        $response->setMaxAge($this->config['sitemap_ttl']);
         $response->headers->add(['Content-Type' => 'application/xml; charset=UTF-8']);
 
-        return $response->setContent($this->renderView('@EkynaSitemap/Sitemap/sitemap.xml.twig', [
+        $content = $this->twig->render('@EkynaSitemap/Sitemap/sitemap.xml.twig', [
             'providers' => $providers,
-        ]));
+        ]);
+
+        return $response->setContent($content);
     }
 }

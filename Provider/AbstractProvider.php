@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\SitemapBundle\Provider;
+
+use DateTimeInterface;
 
 /**
  * Class AbstractProvider
@@ -9,26 +13,14 @@ namespace Ekyna\Bundle\SitemapBundle\Provider;
  */
 abstract class AbstractProvider implements ProviderInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    abstract public function getLastUpdateDate();
+    abstract public function getLastUpdateDate(): ?DateTimeInterface;
 
-    /**
-     * {@inheritdoc}
-     */
-    abstract public function getUrls();
+    abstract public function getUrls(): array;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getSitemap()
+    public function getSitemap(): string
     {
         return 'default';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    abstract public function getName();
+    abstract public function getName(): string;
 }

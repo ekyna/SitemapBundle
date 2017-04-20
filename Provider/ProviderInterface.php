@@ -1,6 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\SitemapBundle\Provider;
+
+use DateTimeInterface;
+use Ekyna\Bundle\SitemapBundle\Url\UrlInterface;
 
 /**
  * Interface ProviderInterface
@@ -11,29 +16,23 @@ interface ProviderInterface
 {
     /**
      * Returns the last update datetime.
-     *
-     * @return \DateTime
      */
-    public function getLastUpdateDate();
+    public function getLastUpdateDate(): ?DateTimeInterface;
 
     /**
      * Returns the sitemap urls.
      *
-     * @return array|\Ekyna\Bundle\SitemapBundle\Url\UrlInterface[]
+     * @return array<UrlInterface>
      */
-    public function getUrls();
+    public function getUrls(): array;
 
     /**
      * Returns the sitemap name.
-     *
-     * @return null|string
      */
-    public function getSitemap();
+    public function getSitemap(): string;
 
     /**
      * Returns the provider name.
-     *
-     * @return string
      */
-    public function getName();
+    public function getName(): string;
 }

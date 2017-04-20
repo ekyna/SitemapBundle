@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\SitemapBundle\Provider;
 
 /**
@@ -9,35 +11,20 @@ namespace Ekyna\Bundle\SitemapBundle\Provider;
  */
 interface ProviderRegistryInterface
 {
-    /**
-     * Registers the provider.
-     *
-     * @param ProviderInterface $provider
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function addProvider(ProviderInterface $provider);
+    public function addProvider(ProviderInterface $provider): void;
 
     /**
-     * Returns the registered providers by sitemap.
-     *
-     * @param string $sitemap
-     *
-     * @return ProviderInterface[]
+     * @return array<ProviderInterface>
      */
-    public function getProvidersBySitemap($sitemap);
+    public function getProvidersBySitemap(string $sitemap): array;
 
     /**
-     * Returns the registered providers.
-     *
-     * @return ProviderInterface[]
+     * @return array<ProviderInterface>
      */
-    public function getProviders();
+    public function getProviders(): array;
 
     /**
-     * Returns the sitemaps.
-     *
-     * @return array
+     * @return array<string>
      */
-    public function getSitemaps();
+    public function getSitemaps(): array;
 }

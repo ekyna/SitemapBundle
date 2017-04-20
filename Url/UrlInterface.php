@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\SitemapBundle\Url;
+
+use DateTimeInterface;
 
 /**
  * Interface UrlInterface
@@ -9,63 +13,19 @@ namespace Ekyna\Bundle\SitemapBundle\Url;
  */
 interface UrlInterface
 {
-    /**
-     * Returns the location.
-     *
-     * @return string
-     */
-    public function getLocation();
+    public function getLocation(): ?string;
 
-    /**
-     * Sets the location.
-     *
-     * @param string $location
-     * @return UrlInterface|$this
-     */
-    public function setLocation($location);
+    public function setLocation(?string $location): UrlInterface;
 
-    /**
-     * Returns the lastmod.
-     *
-     * @return string
-     */
-    public function getLastmod();
+    public function getLastmod(): ?DateTimeInterface;
 
-    /**
-     * Sets the lastmod.
-     *
-     * @param string $lastmod
-     * @return UrlInterface|$this
-     */
-    public function setLastmod($lastmod);
+    public function setLastmod(?DateTimeInterface $lastmod): UrlInterface;
 
-    /**
-     * Returns the changefreq.
-     *
-     * @return string
-     */
-    public function getChangefreq();
+    public function getChangefreq(): ?string;
 
-    /**
-     * Sets the changefreq.
-     *
-     * @param string $changefreq
-     * @return UrlInterface|$this
-     */
-    public function setChangefreq($changefreq);
+    public function setChangefreq(?string $changefreq): UrlInterface;
 
-    /**
-     * Returns the priority.
-     *
-     * @return float
-     */
-    public function getPriority();
+    public function getPriority(): ?string;
 
-    /**
-     * Sets the priority.
-     *
-     * @param float $priority
-     * @return UrlInterface|$this
-     */
-    public function setPriority($priority);
+    public function setPriority(?string $priority): UrlInterface;
 }
