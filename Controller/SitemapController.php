@@ -50,7 +50,7 @@ class SitemapController extends Controller
         $response->setMaxAge($this->container->getParameter('ekyna_sitemap.index_ttl'));
         $response->headers->add(['Content-Type' => 'application/xml; charset=UTF-8']);
 
-        return $response->setContent($this->renderView('EkynaSitemapBundle:Sitemap:index.xml.twig', [
+        return $response->setContent($this->renderView('@EkynaSitemap/Sitemap/index.xml.twig', [
             'sitemaps' => $sitemaps,
         ]));
     }
@@ -89,7 +89,7 @@ class SitemapController extends Controller
         $response->setMaxAge($this->container->getParameter('ekyna_sitemap.sitemap_ttl'));
         $response->headers->add(['Content-Type' => 'application/xml; charset=UTF-8']);
 
-        return $response->setContent($this->renderView('EkynaSitemapBundle:Sitemap:sitemap.xml.twig', [
+        return $response->setContent($this->renderView('@EkynaSitemap/Sitemap/sitemap.xml.twig', [
             'providers' => $providers,
         ]));
     }
